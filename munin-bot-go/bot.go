@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 
 	tgbot "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -18,22 +19,39 @@ type Content struct {
 }
 type Article struct {
 	Title       string `json:"title"`
-	Description string `json:"description"`
+	Description string `json:"description,omitempty"`
 	URL         string `json:"url"`
 }
 
-func HandleError(error error) {
-	if error != nil {
-		log.Fatal(error)
+func GetContent(keyword string) Content {
+	getURL := fmt.Sprintf("https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=%s", API_KEY)
+	if keyword != "" {
+		getURL = fmt.Sprintf("https://newsapi.org/v2/everything?q=%s&apiKey=%s", keyword, API_KEY)
 	}
+	resp, err := http.Get(getURL)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	bytes, readErr := ioutil.ReadAll(resp.Body)
+	defer resp.Body.Close()
+	if readErr != nil {
+		log.Fatal(readErr)
+	}
+
+	var c Content
+	errUnmarshal := json.Unmarshal(bytes, &c)
+	if errUnmarshal != nil {
+		log.Fatal(errUnmarshal)
+	}
+	return c
 }
 
 func main() {
 	bot, error := tgbot.NewBotAPI(TELE_BOT_TOKEN)
-	HandleError(error)
-
-	bot.Debug = false
-
+	if error != nil {
+		log.Fatal(error)
+	}
 	updateConfig := tgbot.NewUpdate(0)
 	updateConfig.Timeout = 60
 
@@ -44,48 +62,38 @@ func main() {
 			continue
 		}
 		msg := tgbot.NewMessage(update.Message.Chat.ID, "")
+
 		switch update.Message.Command() {
 		case "help":
-			msg.Text = "I am Munin, Odin's raven. I gather news from Midgard when commanded /getnews."
+			msg.Text = "I am Munin, Odin's raven. I gather news from Midgard when commanded /getnews." +
+				"\nIf you want to search for a custom word, use /getnews <keyword>." +
+				"\nIf keyword contains more than one word, use /getnews <1word-2word>."
 			if _, err := bot.Send(msg); err != nil {
-				log.Fatal(err)
+				panic(err)
 			}
 		case "getnews":
+			var keyword = ""
+			if update.Message.CommandArguments() != "" {
+				keyword = strings.ToLower(update.Message.CommandArguments())
+			}
 			for i := 0; i < 5; i++ {
-				msg.Text = fmt.Sprintf("Title: %+s\nURL: %+s", GetContent().Articles[i].Title, GetContent().Articles[i].URL)
+				msg.Text = fmt.Sprintf("Title: %+s\nURL: %+s", GetContent(keyword).Articles[i].Title, GetContent(keyword).Articles[i].URL)
 				if _, err := bot.Send(msg); err != nil {
-					log.Fatal(err)
+					panic(err)
 				}
 			}
 		case "kaw":
 			msg.Text = "You expect me to kaw, cus I am a raven? :|"
 			if _, err := bot.Send(msg); err != nil {
-				log.Fatal(err)
+				panic(err)
 			}
 		default:
 			msg.Text = "Kaw kaw idk what you kawing?"
 			if _, err := bot.Send(msg); err != nil {
-				log.Fatal(err)
+				panic(err)
 			}
 		}
 
 	}
-
-}
-
-func GetContent() Content {
-	resp, err := http.Get("https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=" + API_KEY)
-
-	HandleError(err)
-
-	bytes, readErr := ioutil.ReadAll(resp.Body)
-	defer resp.Body.Close()
-	HandleError(readErr)
-
-	var c Content
-	// Unmarshal is basically unpacking a string to a JSON based struct
-	errUnmarshal := json.Unmarshal(bytes, &c)
-	HandleError(errUnmarshal)
-	return c
 
 }
