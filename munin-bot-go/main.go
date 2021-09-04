@@ -29,12 +29,11 @@ func main() {
 		msg := tgbot.NewMessage(update.Message.Chat.ID, "")
 
 		switch update.Message.Command() {
-		case "help":
+		case "help", "intro":
 			msg.Text = "I am Munin, Odin's raven. I gather news from Midgard when commanded /getnews." +
 				"\nIf you want to search for a custom word, use /getnews <keyword>." +
 				"\nIf keyword contains more than one word, use /getnews <1word-2word>." +
-				"\nYou can also ask me if you need a raincoat by commanding /dinar or /dinar <cityname>." +
-				"\nNote: City name must begin with a capital letter."
+				"\nYou can also ask me if you need a raincoat by commanding /dinar or /dinar <cityname>."
 			if _, err := bot.Send(msg); err != nil {
 				panic(err)
 			}

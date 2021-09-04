@@ -23,6 +23,10 @@ func processMainForecast(w botutils.Weather) string {
 			forecast += "Ya better take an umbrella\n"
 		case "Clear":
 			forecast += "As clear as the signs that she's not into you..\n"
+		case "Clouds":
+			forecast += "Well I suppose Thor is upon us.. It's getting cloudy >:)\n"
+		case "Haze":
+			forecast += fmt.Sprintf("It's %s-y outside, if that's a word.. basically foggy..", w.Weather[i].Main)
 		default:
 			forecast += fmt.Sprintf("Hmm.. I suppose Odin hasn't programmed that part of the weather yet. So it's just %s\n", w.Weather[i].Main)
 		}
