@@ -9,4 +9,3 @@ I travel around the world to gather news for Odin. Currently under development.
   Note: If keywords have more than 1 word, then hyphens must be used to enter the keywords.
 * /dinar: Gathers the weather status in Vaxjo
 * /dinar <city>: Gathers the weather status in the desired city.
-  Note: The city name must be capitalized.
