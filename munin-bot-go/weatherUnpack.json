@@ -1,0 +1,43 @@
+{
+    "coord": {
+        "lon": 18.0649,
+        "lat": 59.3326
+    },
+    "weather": [
+        {
+            "id": 800,
+            "main": "Clear",
+            "description": "clear sky",
+            "icon": "01d"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 278.64,
+        "feels_like": 277.03,
+        "temp_min": 276.1,
+        "temp_max": 281.4,
+        "pressure": 1018,
+        "humidity": 67
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 2.06,
+        "deg": 300
+    },
+    "clouds": {
+        "all": 1
+    },
+    "dt": 1630730772,
+    "sys": {
+        "type": 1,
+        "id": 1788,
+        "country": "SE",
+        "sunrise": 1630727493,
+        "sunset": 1630777344
+    },
+    "timezone": 7200,
+    "id": 2673730,
+    "name": "Stockholm",
+    "cod": 200
+}
