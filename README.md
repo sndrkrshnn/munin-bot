@@ -1,5 +1,6 @@
-# munin-bot
+# Munin
 I travel around the world to gather news for Odin. Currently under development.
+## Telegram Account: @muninodinsraven_bot
 
 # Commands
 * /help: Displays the list of commands and how to use them.
