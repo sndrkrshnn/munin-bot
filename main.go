@@ -21,7 +21,6 @@ var BOT *tgbot.BotAPI
 func handler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		bytes, _ := io.ReadAll(r.Body)
-		// feed the body (somehow) to ProcessUpdates and that's it...
 		var update tgbot.Update
 		err := json.Unmarshal(bytes, &update)
 		if err != nil {
@@ -90,11 +89,18 @@ func main() {
 	log.Printf("Authorized on account %s", BOT.Self.UserName)
 
 	// Set webhook url (curl)
-	log.Print("Listening on " + os.Getenv("PORT"))
+	log.Print("Listening on: " + os.Getenv("PORT"))
 
 	//log.Print(bot.ListenForWebhook("/" + bot.Token))
 	http.HandleFunc("/"+BOT.Token, handler)
-	if err := http.ListenAndServe(":", nil); err != nil {
-		log.Fatal(err)
+	if os.Getenv("PORT") == "" {
+		if err := http.ListenAndServe(":8443", nil); err != nil {
+			log.Fatal(err)
+		}
+	} else {
+		if err := http.ListenAndServe(":"+os.Getenv("PORT"), nil); err != nil {
+			log.Fatal(err)
+		}
 	}
+
 }
