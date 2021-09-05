@@ -40,6 +40,7 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+munin-bot-go/
 
 # TypeScript v1 declaration files
 typings/
@@ -67,6 +68,9 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
+.gcloudignore
+app.yaml
+weatherUnpack.json
 
 # dotenv environment variables file
 .env
