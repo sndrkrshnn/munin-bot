@@ -27,6 +27,8 @@ func processMainForecast(w botutils.Weather) string {
 			forecast += "Well I suppose Thor is upon us.. It's getting cloudy >:)\n"
 		case "Haze":
 			forecast += fmt.Sprintf("It's %s-y outside, if that's a word.. basically foggy..", w.Weather[i].Main)
+		case "Thunderstorm":
+			forecast += fmt.Sprintf("THOR AND ODIN ARE WITH US! I'm tryna say that there's a %s outside\n", w.Weather[i].Main)
 		default:
 			forecast += fmt.Sprintf("Hmm.. I suppose Odin hasn't programmed that part of the weather yet. So it's just %s\n", w.Weather[i].Main)
 		}
@@ -52,7 +54,6 @@ func processTemperature(w botutils.Weather) string {
 	case t >= 15.0:
 		temp += "Show off that body.. Humans were never meant to wear clothes..\n" +
 			fmt.Sprintf("The temperature outside is %.1f°C\n", t)
-
 	default:
 		temp += fmt.Sprintf("Hmm.. I suppose Odin hasn't programmed that temperature range yet. So it's just %.1f°C\n", t)
 	}
