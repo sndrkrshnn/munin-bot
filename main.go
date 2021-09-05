@@ -3,9 +3,9 @@ package main
 import (
 	"encoding/json"
 	"io"
-	"os"
 	"log"
 	"net/http"
+	"os"
 	"strings"
 
 	p "example.com/main/processor"
@@ -34,8 +34,8 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		log.Print(update.Message.Chat.ID)
 		msg := tgbot.NewMessage(update.Message.Chat.ID, "")
 
-		switch update.Message.Text {
-		case "/help", "/intro":
+		switch update.Message.Command() {
+		case "help", "intro":
 			log.Print("gotcha home!!")
 			msg.Text = "I am Munin, Odin's raven. I gather news from Midgard when commanded /getnews." +
 				"\nIf you want to search for a custom word, use /getnews <keyword>." +
@@ -44,7 +44,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			if _, err := BOT.Send(msg); err != nil {
 				panic(err)
 			}
-		case "/getnews":
+		case "getnews":
 			var keyword = ""
 			if update.Message.CommandArguments() != "" {
 				keyword = strings.ToLower(update.Message.CommandArguments())
@@ -53,7 +53,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			if _, err := BOT.Send(msg); err != nil {
 				panic(err)
 			}
-		case "/dinar":
+		case "dinar":
 			var city = "Vaxjo"
 			if update.Message.CommandArguments() != "" {
 				city = strings.ToLower(update.Message.CommandArguments())
@@ -62,7 +62,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 			if _, err := BOT.Send(msg); err != nil {
 				panic(err)
 			}
-		case "/kaw":
+		case "kaw":
 			msg.Text = "You expect me to kaw, cus I am a raven? :|"
 			if _, err := BOT.Send(msg); err != nil {
 				panic(err)
@@ -90,7 +90,7 @@ func main() {
 	log.Printf("Authorized on account %s", BOT.Self.UserName)
 
 	// Set webhook url (curl)
-	log.Print("Listening on "+os.Getenv("PORT"))
+	log.Print("Listening on " + os.Getenv("PORT"))
 
 	//log.Print(bot.ListenForWebhook("/" + bot.Token))
 	http.HandleFunc("/"+BOT.Token, handler)
