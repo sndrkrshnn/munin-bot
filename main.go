@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"io"
+	"os"
 	"log"
 	"net/http"
 	"strings"
@@ -89,11 +90,11 @@ func main() {
 	log.Printf("Authorized on account %s", BOT.Self.UserName)
 
 	// Set webhook url (curl)
-	log.Print(BOT.Token)
+	log.Print("Listening on "+os.Getenv("PORT"))
 
 	//log.Print(bot.ListenForWebhook("/" + bot.Token))
 	http.HandleFunc("/"+BOT.Token, handler)
-	if err := http.ListenAndServe(":8443", nil); err != nil {
+	if err := http.ListenAndServe(":", nil); err != nil {
 		log.Fatal(err)
 	}
 }
