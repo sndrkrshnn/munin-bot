@@ -93,7 +93,7 @@ func main() {
 
 	//log.Print(bot.ListenForWebhook("/" + bot.Token))
 	http.HandleFunc("/"+BOT.Token, handler)
-	if err := http.ListenAndServe(":8443", nil); err != nil {
+	if err := http.ListenAndServe(":", nil); err != nil {
 		log.Fatal(err)
 	}
 }
