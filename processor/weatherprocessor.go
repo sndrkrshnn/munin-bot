@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"example.com/main/botutils"
+	"example.com/main/types"
 )
 
 func ProcessWeather(city string, API_KEY string) string {
@@ -13,7 +14,7 @@ func ProcessWeather(city string, API_KEY string) string {
 	return reply
 }
 
-func processMainForecast(w botutils.Weather) string {
+func processMainForecast(w types.Weather) string {
 	var forecast string
 	for i := range w.Weather {
 		switch w.Weather[i].Main {
@@ -36,7 +37,7 @@ func processMainForecast(w botutils.Weather) string {
 	return forecast
 }
 
-func processTemperature(w botutils.Weather) string {
+func processTemperature(w types.Weather) string {
 	var temp string
 	switch t := w.Metrics.Feelslike; {
 	case t <= 10.0 && (!(t < 6.0) || !(t < 2.0)):

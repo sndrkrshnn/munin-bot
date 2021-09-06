@@ -6,29 +6,11 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+
+	"example.com/main/types"
 )
 
-type WeatherContent struct {
-	Main        string `json:"main"`
-	Description string `json:"description"`
-}
-
-type WeatherMetrics struct {
-	Temperature float32 `json:"temp"`
-	Feelslike   float32 `json:"feels_like"`
-	Humidity    float32 `json:"humidity"`
-}
-type Wind struct {
-	Speed float32 `json:"speed"`
-}
-
-type Weather struct {
-	Weather []WeatherContent `json:"weather"`
-	Metrics WeatherMetrics   `json:"main"`
-	Wind    Wind             `json:"wind"`
-}
-
-func GetWeather(city string, API_KEY string) Weather {
+func GetWeather(city string, API_KEY string) types.Weather {
 	getURL := fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?q=Vaxjo&units=metric&appid=%s", API_KEY)
 	if city != "" {
 		getURL = fmt.Sprintf("https://api.openweathermap.org/data/2.5/weather?q=%s&units=metric&appid=%s", city, API_KEY)
@@ -45,7 +27,7 @@ func GetWeather(city string, API_KEY string) Weather {
 		log.Fatal(readErr)
 	}
 
-	var weather Weather
+	var weather types.Weather
 	errUnmarshal := json.Unmarshal(bytes, &weather)
 	if errUnmarshal != nil {
 		log.Fatal(errUnmarshal)

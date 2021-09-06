@@ -50,37 +50,25 @@ func main() {
 				"\nIf you want to search for a custom word, use /getnews <keyword>." +
 				"\nIf keyword contains more than one word, use /getnews <1word-2word>." +
 				"\nYou can also ask me if you need a raincoat by commanding /dinar or /dinar <cityname>."
-			if _, err := bot.Send(msg); err != nil {
-				panic(err)
-			}
 		case "getnews":
 			var keyword = ""
 			if update.Message.CommandArguments() != "" {
 				keyword = strings.ToLower(update.Message.CommandArguments())
 			}
 			msg.Text = p.ProcessNews(keyword, NEWS_API_KEY)
-			if _, err := bot.Send(msg); err != nil {
-				panic(err)
-			}
-		case "dinar":
+		case "dinar", "weather":
 			var city = "Vaxjo"
 			if update.Message.CommandArguments() != "" {
 				city = strings.ToLower(update.Message.CommandArguments())
 			}
 			msg.Text = p.ProcessWeather(city, WEATHER_API_KEY)
-			if _, err := bot.Send(msg); err != nil {
-				panic(err)
-			}
 		case "kaw":
 			msg.Text = "You expect me to kaw, cus I am a raven? :|"
-			if _, err := bot.Send(msg); err != nil {
-				panic(err)
-			}
 		default:
 			msg.Text = "Kaw kaw idk what you kawing?"
-			if _, err := bot.Send(msg); err != nil {
-				panic(err)
-			}
+		}
+		if _, err := bot.Send(msg); err != nil {
+			panic(err)
 		}
 	}
 
