@@ -6,9 +6,9 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+
 	"example.com/main/types"
 )
-
 
 func GetContent(keyword string, API_KEY string) types.NewsContent {
 	getURL := fmt.Sprintf("https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=%s", API_KEY)
