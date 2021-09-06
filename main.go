@@ -49,7 +49,7 @@ func main() {
 			msg.Text = "I am Munin, Odin's raven. I gather news from Midgard when commanded /getnews." +
 				"\nIf you want to search for a custom word, use /getnews <keyword>." +
 				"\nIf keyword contains more than one word, use /getnews <1word-2word>." +
-				"\nYou can also ask me if you need a raincoat by commanding /dinar or /dinar <cityname>."
+				"\nYou can also ask me if you need a raincoat by commanding /weather or /weather <cityname>."
 		case "getnews":
 			var keyword = ""
 			if update.Message.CommandArguments() != "" {

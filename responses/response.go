@@ -5,7 +5,7 @@ func getFog() []string {
 		"What the FOG..Don't look behind\n"}
 }
 func getRain() []string {
-	return []string{"Ya better take an umbrella\n\n", "Perfect day for a walk in the rain?\n",
+	return []string{"Ya better take an umbrella.\n", "Perfect day for a walk in the rain?\n",
 		"It's not gonna rain.. IT'S GONNA POUR!!\n"}
 }
 func getClear() []string {
