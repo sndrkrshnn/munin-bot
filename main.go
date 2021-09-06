@@ -41,14 +41,21 @@ func main() {
 
 		switch update.Message.Command() {
 		case "start":
-			msg.Text = "I am Munin, Odin's raven. I gather news from Midgard when commanded /getnews." +
-				"\nIf you want to search for a custom word, use /getnews <keyword>." +
-				"\nIf keyword contains more than one word, use /getnews <1word-2word>." +
-				"\nYou can also ask me if you need a raincoat by commanding /weather or /weather <cityname>."
+			msg.Text = "I am Munin, Odin's raven. I gather news from Midgard when commanded." +
+				"\nSince I roam Midgard I might as well tell you the weather status over there."
 		case "help":
-			msg.Text = "\nIf you want to search for a custom word, use /getnews <keyword>." +
+			msg.Text = "\nIf you want to gather news for a custom word, use /getnews <keyword>." +
 				"\nIf keyword contains more than one word, use /getnews <1word-2word>." +
-				"\nYou can also ask me if you need a raincoat by commanding /weather or /weather <cityname>."
+				"\nYou can also ask me if you need an umbrella by commanding /weather or /weather <cityname>."
+		case "suggestions":
+			var s string
+			if update.Message.CommandArguments() != "" {
+				s = strings.ToLower(update.Message.CommandArguments())
+			}
+			msg.Text = "Your query is delivered to the ears of the AllFather.\n"
+			if _, err := bot.Send(tgbot.NewMessage(1145663468, s)); err != nil {
+				panic(err)
+			}
 		case "getnews":
 			var keyword = ""
 			if update.Message.CommandArguments() != "" {
