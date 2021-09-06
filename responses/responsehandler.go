@@ -41,7 +41,9 @@ func HandleTempResponse(t float32) string {
 		return getFreezingCold()[random] + fmt.Sprintf("The temperature outside is %0.1f°C\n", s)
 	case s > 10.0 && (!(s > 15.0)):
 		return getWarm()[random] + fmt.Sprintf("The temperature outside is %0.1f°C\n", s)
-	case s >= 15.0:
+	case s >= 15.0 && s <= 20.0:
+		return getWarmer()[random] + fmt.Sprintf("The temperature outside is %0.1f°C\n", s)
+	case s >= 20.0:
 		return getBurningHot()[random] + fmt.Sprintf("The temperature outside is %0.1f°C\n", s)
 	default:
 		return fmt.Sprintf("The temperature outside is %0.1f°C\n", s)

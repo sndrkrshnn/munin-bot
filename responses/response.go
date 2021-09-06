@@ -31,6 +31,11 @@ func getWarm() []string {
 		"What's lighter than a sweater but more warmer than a t-shirt? You need that.\n"}
 }
 
+func getWarmer() []string {
+	return []string{"A simple t-shirt is more than enough\n", "I'd like to introduce y'all to one of mankind's best inventions.. The t-shirt.\n",
+		"Hell naw.. No sweater.. Nuh-uh.. we don't do that here.\n"}
+}
+
 func getLightCold() []string {
 	return []string{"Might wanna consider wearing a sweater or something\n", "Just a sweater.. Not too warm.. not too cold outside.\n",
 		"It's cold outside.. Here take this with you..*hands over sweater*\n"}
