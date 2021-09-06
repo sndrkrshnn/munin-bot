@@ -18,64 +18,74 @@ const WEATHER_API_KEY = "b2b1c07c6349055ee36c756e00b7ca4c"
 
 var BOT *tgbot.BotAPI
 
+func HandleUpdate(r *http.Request) (tgbot.Update, error) {
+	var update tgbot.Update
+	err := json.NewDecoder(r.Body).Decode(&update)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return update, nil
+}
+
 func handler(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		bytes, _ := io.ReadAll(r.Body)
-		var update tgbot.Update
-		err := json.Unmarshal(bytes, &update)
-		if err != nil {
-			log.Fatal(err)
-		}
-		log.Println(update)
-		if update.Message == nil {
-			return
-		}
-		log.Print(update.Message.Chat.ID)
-		msg := tgbot.NewMessage(update.Message.Chat.ID, "")
+		ch := make(chan tgbot.Update, BOT.Buffer)
+		u, _ := HandleUpdate(r)
+		ch <- u
+		updates := ch
+		for update := range updates {
+			if update.Message == nil {
+				return
+			}
+			log.Print(update.Message.Chat.ID)
+			msg := tgbot.NewMessage(update.Message.Chat.ID, "")
 
-		switch update.Message.Command() {
-		case "help", "intro":
-			log.Print("gotcha home!!")
-			msg.Text = "I am Munin, Odin's raven. I gather news from Midgard when commanded /getnews." +
-				"\nIf you want to search for a custom word, use /getnews <keyword>." +
-				"\nIf keyword contains more than one word, use /getnews <1word-2word>." +
-				"\nYou can also ask me if you need a raincoat by commanding /dinar or /dinar <cityname>."
-			if _, err := BOT.Send(msg); err != nil {
-				panic(err)
+			switch update.Message.Command() {
+			case "help", "intro":
+				log.Print("gotcha home!!")
+				msg.Text = "I am Munin, Odin's raven. I gather news from Midgard when commanded /getnews." +
+					"\nIf you want to search for a custom word, use /getnews <keyword>." +
+					"\nIf keyword contains more than one word, use /getnews <1word-2word>." +
+					"\nYou can also ask me if you need a raincoat by commanding /dinar or /dinar <cityname>."
+				if _, err := BOT.Send(msg); err != nil {
+					panic(err)
+				}
+			case "getnews":
+				var keyword = ""
+				if update.Message.CommandArguments() != "" {
+					keyword = strings.ToLower(update.Message.CommandArguments())
+				}
+				msg.Text = p.ProcessNews(keyword, NEWS_API_KEY)
+				if _, err := BOT.Send(msg); err != nil {
+					panic(err)
+				}
+			case "dinar":
+				var city = "Vaxjo"
+				if update.Message.CommandArguments() != "" {
+					city = strings.ToLower(update.Message.CommandArguments())
+				}
+				msg.Text = p.ProcessWeather(city, WEATHER_API_KEY)
+				if _, err := BOT.Send(msg); err != nil {
+					panic(err)
+				}
+			case "kaw":
+				msg.Text = "You expect me to kaw, cus I am a raven? :|"
+				if _, err := BOT.Send(msg); err != nil {
+					panic(err)
+				}
+			default:
+				msg.Text = "Kaw kaw idk what you kawing?"
+				if _, err := BOT.Send(msg); err != nil {
+					panic(err)
+				}
 			}
-		case "getnews":
-			var keyword = ""
-			if update.Message.CommandArguments() != "" {
-				keyword = strings.ToLower(update.Message.CommandArguments())
-			}
-			msg.Text = p.ProcessNews(keyword, NEWS_API_KEY)
-			if _, err := BOT.Send(msg); err != nil {
-				panic(err)
-			}
-		case "dinar":
-			var city = "Vaxjo"
-			if update.Message.CommandArguments() != "" {
-				city = strings.ToLower(update.Message.CommandArguments())
-			}
-			msg.Text = p.ProcessWeather(city, WEATHER_API_KEY)
-			if _, err := BOT.Send(msg); err != nil {
-				panic(err)
-			}
-		case "kaw":
-			msg.Text = "You expect me to kaw, cus I am a raven? :|"
-			if _, err := BOT.Send(msg); err != nil {
-				panic(err)
-			}
-		default:
-			msg.Text = "Kaw kaw idk what you kawing?"
-			if _, err := BOT.Send(msg); err != nil {
-				panic(err)
-			}
+			w.Write(bytes)
 		}
-		w.Write(bytes)
 	} else {
 		log.Println("Only POST functions work...")
 	}
+
 }
 
 func main() {
