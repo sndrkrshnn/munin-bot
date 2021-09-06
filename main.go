@@ -18,13 +18,13 @@ const WEATHER_API_KEY = "b2b1c07c6349055ee36c756e00b7ca4c"
 
 var BOT *tgbot.BotAPI
 
-func HandleUpdate(r *http.Request) (*tgbot.Update, error) {
+func HandleUpdate(r *http.Request) (tgbot.Update, error) {
 	var update tgbot.Update
 	err := json.NewDecoder(r.Body).Decode(&update)
 	if err != nil {
-		return nil, err
+		log.Fatal(err)
 	}
-	return &update, nil
+	return update, nil
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
@@ -32,7 +32,7 @@ func handler(w http.ResponseWriter, r *http.Request) {
 		bytes, _ := io.ReadAll(r.Body)
 		ch := make(chan tgbot.Update, BOT.Buffer)
 		u, _ := HandleUpdate(r)
-		ch <- *u
+		ch <- u
 		updates := ch
 		for update := range updates {
 			if update.Message == nil {
