@@ -56,7 +56,7 @@ func main() {
 				keyword = strings.ToLower(update.Message.CommandArguments())
 			}
 			msg.Text = p.ProcessNews(keyword, NEWS_API_KEY)
-		case "dinar", "weather":
+		case "weather":
 			var city = "Vaxjo"
 			if update.Message.CommandArguments() != "" {
 				city = strings.ToLower(update.Message.CommandArguments())

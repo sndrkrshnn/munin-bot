@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"example.com/main/botutils"
+	"example.com/main/responses"
 	"example.com/main/types"
 )
 
@@ -17,22 +18,7 @@ func ProcessWeather(city string, API_KEY string) string {
 func processMainForecast(w types.Weather) string {
 	var forecast string
 	for i := range w.Weather {
-		switch w.Weather[i].Main {
-		case "Fog":
-			forecast += "Haven't the FOG-giest lol\n"
-		case "Rain":
-			forecast += "Ya better take an umbrella\n"
-		case "Clear":
-			forecast += "As clear as the signs that she's not into you..\n"
-		case "Clouds":
-			forecast += "Well I suppose Thor is upon us.. It's getting cloudy >:)\n"
-		case "Haze":
-			forecast += fmt.Sprintf("It's %s-y outside, if that's a word.. basically foggy..", w.Weather[i].Main)
-		case "Thunderstorm":
-			forecast += fmt.Sprintf("THOR AND ODIN ARE WITH US! I'm tryna say that there's a %s outside\n", w.Weather[i].Main)
-		default:
-			forecast += fmt.Sprintf("Hmm.. I suppose Odin hasn't programmed that part of the weather yet. So it's just %s\n", w.Weather[i].Main)
-		}
+		forecast += responses.HandleWeatherResponse(w.Weather[i].Main)
 	}
 	return forecast
 }

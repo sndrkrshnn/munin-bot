@@ -1,5 +1,7 @@
 # Munin
-I travel around the world to gather news for Odin. Currently under development.
+I travel around the world to gather news for Odin. (Currently under development.)
+
+# Language: Go
 ## Telegram Account: @muninodinsraven_bot
 
 # Commands
@@ -7,5 +9,5 @@ I travel around the world to gather news for Odin. Currently under development.
 * /getnews: Gathers the top 3 headlines of the day.
 * /getnews "keyword": Gathers the top 3 headlines of the searched keyword.
   Note: If keywords have more than 1 word, then hyphens must be used to enter the keywords.
-* /dinar: Gathers the weather status in Vaxjo
-* /dinar "city": Gathers the weather status in the desired city.
+* /weather: Gathers the weather status in Vaxjo (Was previously /dinar)
+* /weather "city": Gathers the weather status in the desired city.
