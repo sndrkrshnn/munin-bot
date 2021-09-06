@@ -22,7 +22,7 @@ func getHaze() []string {
 }
 
 func getBurningHot() []string {
-	return []string{"Show off that body.. Humans were never meant to wear clothes..\n", "You most certainly do not need a sweater *gender*\n",
+	return []string{"Show off that body.. Humans were never meant to wear clothes..\n", "You most certainly do not need a sweater *sir/madam/gender*\n",
 		"Global hot-ting.. Should've listened to Greta.. :(\n"}
 }
 
