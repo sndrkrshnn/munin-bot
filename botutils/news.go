@@ -10,6 +10,7 @@ import (
 
 type Content struct {
 	Articles []Article `json:"articles"`
+	Message  string    `json:"message, omitempty"`
 }
 type Article struct {
 	Title       string `json:"title"`
