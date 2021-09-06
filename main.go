@@ -34,15 +34,7 @@ func main() {
 		log.Printf("Telegram callback failed: %s", info.LastErrorMessage)
 	}
 	updates := bot.ListenForWebhook("/" + bot.Token)
-	if os.Getenv("PORT") == "" {
-		if err := http.ListenAndServe(":8443", nil); err != nil {
-			log.Fatal(err)
-		}
-	} else {
-		if err := http.ListenAndServe(":"+os.Getenv("PORT"), nil); err != nil {
-			log.Fatal(err)
-		}
-	}
+	go http.ListenAndServe(":"+os.Getenv("PORT"), nil)
 
 	for update := range updates {
 		if update.Message == nil {
