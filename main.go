@@ -10,12 +10,8 @@ import (
 	tgbot "github.com/go-telegram-bot-api/telegram-bot-api"
 )
 
-const NEWS_API_KEY = "560eb9ae5c3d4fcea61d6c85ece0317a"
-const TELE_BOT_TOKEN = "1921970606:AAFvOb2DLn58gQqaBGXy2R4a5PFewMcP5NE"
-const WEATHER_API_KEY = "b2b1c07c6349055ee36c756e00b7ca4c"
-
 func main() {
-	bot, error := tgbot.NewBotAPI(TELE_BOT_TOKEN)
+	bot, error := tgbot.NewBotAPI(os.Getenv("TELE_BOT_TOKEN"))
 	if error != nil {
 		log.Fatal(error)
 	}
@@ -55,13 +51,13 @@ func main() {
 			if update.Message.CommandArguments() != "" {
 				keyword = strings.ToLower(update.Message.CommandArguments())
 			}
-			msg.Text = p.ProcessNews(keyword, NEWS_API_KEY)
+			msg.Text = p.ProcessNews(keyword, os.Getenv("NEWS_API_KEY"))
 		case "weather":
 			var city = "Vaxjo"
 			if update.Message.CommandArguments() != "" {
 				city = strings.ToLower(update.Message.CommandArguments())
 			}
-			msg.Text = p.ProcessWeather(city, WEATHER_API_KEY)
+			msg.Text = p.ProcessWeather(city, os.Getenv("WEATHER_API_KEY"))
 		case "kaw":
 			msg.Text = "You expect me to kaw, cus I am a raven? :|"
 		default:
