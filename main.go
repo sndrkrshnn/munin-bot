@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"errors"
 	"io"
 	"log"
 	"net/http"
@@ -20,16 +19,11 @@ const WEATHER_API_KEY = "b2b1c07c6349055ee36c756e00b7ca4c"
 var BOT *tgbot.BotAPI
 
 func HandleUpdate(r *http.Request) (*tgbot.Update, error) {
-	if r.Method != http.MethodPost {
-		err := errors.New("wrong HTTP method required POST")
-		return nil, err
-	}
 	var update tgbot.Update
 	err := json.NewDecoder(r.Body).Decode(&update)
 	if err != nil {
 		return nil, err
 	}
-
 	return &update, nil
 }
 
