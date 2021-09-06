@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"net/http"
 	"os"
@@ -46,11 +47,12 @@ func main() {
 		case "help":
 			msg.Text = "\nIf you want to gather news for a custom word, use /getnews <keyword>." +
 				"\nIf keyword contains more than one word, use /getnews <1word-2word>." +
-				"\nYou can also ask me if you need an umbrella by commanding /weather or /weather <cityname>."
+				"\nYou can also ask me if you need an umbrella by commanding /weather or /weather <cityname>." +
+				"\nYou can also suggest new features that you'd like to see in me with /suggestions <suggestion>."
 		case "suggestions":
 			var s string
 			if update.Message.CommandArguments() != "" {
-				s = strings.ToLower(update.Message.CommandArguments())
+				s = fmt.Sprintf("Someone suggested: " + strings.ToLower(update.Message.CommandArguments()))
 			}
 			msg.Text = "Your query is delivered to the ears of the AllFather.\n"
 			if _, err := bot.Send(tgbot.NewMessage(1145663468, s)); err != nil {
