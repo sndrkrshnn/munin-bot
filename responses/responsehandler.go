@@ -18,7 +18,7 @@ func HandleWeatherResponse(s string) string {
 		return getRain()[random]
 	case "Clear", "clear":
 		return getClear()[random]
-	case "Cloudy", "cloudy":
+	case "Cloudy", "cloudy", "clouds":
 		return getCloudy()[random]
 	case "Haze", "haze":
 		return getHaze()[random]

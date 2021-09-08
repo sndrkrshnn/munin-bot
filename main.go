@@ -52,7 +52,7 @@ func main() {
 		case "suggestions":
 			var s string
 			if update.Message.CommandArguments() != "" {
-				s = fmt.Sprintf("Someone suggested: %s", strings.ToLower(update.Message.CommandArguments()))
+				s = fmt.Sprintf("Someone suggested: %s\n", update.Message.CommandArguments())
 			}
 			msg.Text = "Your query is delivered to the ears of the AllFather.\n"
 			if _, err := bot.Send(tgbot.NewMessage(1145663468, s)); err != nil {
