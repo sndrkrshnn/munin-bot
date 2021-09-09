@@ -7,10 +7,10 @@ import (
 	"example.com/main/types"
 )
 func HandleWeatherResponse(s string) string {
-	rand.See(time.Now().UnixNano())
+	rand.Seed(time.Now().UnixNano())
 	min := 0
 	max := len(getFog()) - 1
-	random := and.Intn(max-min+1) + min
+	random := rand.Intn(max-min+1) + min
 	switch s {
 	case "Fog", "fog", "Mist", "mist":
 		return getFog()[random]
@@ -28,10 +28,10 @@ func HandleWeatherResponse(s string) string {
 }
 
 func HandleTempResponse(t types.Weather) string {
-	rand.See(time.Now().UnixNano())
+	rand.Seed(time.Now().UnixNano())
 	min := 0
 	max := len(getFog()) - 1
-	random := rand.Intn(max-min+1) + mn
+	random := rand.Intn(max-min+1) + min
 	switch s := t.Metrics.Feelslike; {
 	case s <= 10.0 && (!(s < 6.0) || !(s < 2.0)):
 		return getLightCold()[random] + fmt.Sprintf("The temperature outside is %0.1f°C\n", s)
