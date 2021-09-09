@@ -23,6 +23,6 @@ func processMainForecast(w types.Weather) string {
 
 func processTemperature(w types.Weather) string {
 	var temp string
-	temp += responses.HandleTempResponse(w.Metrics.Feelslike)
+	temp += responses.HandleTempResponse(w)
 	return temp
 }

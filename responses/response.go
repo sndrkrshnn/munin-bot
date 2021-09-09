@@ -40,6 +40,10 @@ func getLightCold() []string {
 	return []string{"Might wanna consider wearing a sweater or something\n", "Just a sweater.. Not too warm.. not too cold outside.\n",
 		"It's cold outside.. Here take this with you..*hands over sweater*\n"}
 }
+func getAverageCold() []string {
+	return []string{"Definitely wear a sweater.. Cold and windy..\n", "Is it just me or is that cold looking kinda.. T H I C C\n",
+		"A tad bit colder than usual.. Wear something warm.\n"}
+}
 
 func getFreezingCold() []string {
 	return []string{"Wear armor if you will.. The only objective is to make yourself warm..\n", "So cold that frost giants have started moving here..\n",
