@@ -45,9 +45,9 @@ func HandleTempResponse(t types.Weather) string {
 		return getWarm()[random] + fmt.Sprintf("The temperature outside is %0.1f°C\n", s)
 	case s > 10.0 && (!(s > 15.0)) && t.Wind.Speed >= 10.0:
 		return getAverageCold()[random] + fmt.Sprintf("The temperature outside is %0.1f°C\n, but it's windy..", s)
-	case s >= 15.0 && s <= 19.0 && !(t.Wind.Speed > 10.0):
+	case s >= 15.0 && s <= 19.0 && !(t.Wind.Speed >= 10.0):
 		return getWarm()[random] + fmt.Sprintf("The temperature outside is %0.1f°C\n", s)
-	case s >= 15.0 && s <= 19.0 && t.Wind.Speed > 10.0:
+	case s >= 15.0 && s <= 19.0 && t.Wind.Speed >= 10.0:
 		return getLightCold()[random] + fmt.Sprintf("The temperature outside is %0.1f°C\n, but it's windy..", s)
 	case s >= 19.0:
 		return getBurningHot()[random] + fmt.Sprintf("The temperature outside is %0.1f°C\n", s)
