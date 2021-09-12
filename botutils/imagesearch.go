@@ -16,6 +16,7 @@ func GetImageContent(keyword string, API_KEY string) types.ImageContent {
 		getURL = fmt.Sprintf("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%s&text=%s&format=json", keyword, API_KEY)
 	}
 	resp, err := http.Get(getURL)
+	log.Println(resp)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -31,5 +32,6 @@ func GetImageContent(keyword string, API_KEY string) types.ImageContent {
 	if errUnmarshal != nil {
 		log.Fatal(errUnmarshal)
 	}
+	log.Println(c)
 	return c
 }

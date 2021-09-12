@@ -37,7 +37,6 @@ func main() {
 		if update.Message == nil {
 			return
 		}
-		log.Print(update.Message.Chat.ID)
 		msg := tgbot.NewMessage(update.Message.Chat.ID, "")
 
 		switch update.Message.Command() {
