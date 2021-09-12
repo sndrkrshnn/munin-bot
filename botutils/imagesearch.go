@@ -12,9 +12,9 @@ import (
 )
 
 func GetImageContent(keyword string, API_KEY string) types.ImageContent {
-	getURL := fmt.Sprintf("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%s&text=hollow-knight&format=json", API_KEY)
+	getURL := fmt.Sprintf("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%s&text=aesthetic-wallpaper&format=json", API_KEY)
 	if keyword != "" {
-		getURL = fmt.Sprintf("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%s&text=%s&format=json", API_KEY, keyword)
+		getURL = fmt.Sprintf("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%s&text=%s-wallpaper&format=json", API_KEY, keyword)
 	}
 	resp, err := http.Get(getURL)
 	if err != nil {

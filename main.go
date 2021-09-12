@@ -48,7 +48,7 @@ func main() {
 				"\nIf keyword contains more than one word, use /getnews <1word-2word>." +
 				"\nYou can also ask me if you need an umbrella by commanding /weather or /weather <cityname>." +
 				"\nYou can also suggest new features that you'd like to see in me with /suggestions <suggestion>." +
-				"\nYou can also get suggested a completely random image or an image based on your keyword using /image <keyword> or /image."
+				"\nYou can also get suggested a completely random wallpaper or a wallpaper based on your keyword using /wallpaper <keyword> or /wallpaper."
 		case "suggestions":
 			var s string
 			if update.Message.CommandArguments() != "" {
@@ -64,7 +64,7 @@ func main() {
 				keyword = strings.ToLower(update.Message.CommandArguments())
 			}
 			msg.Text = p.ProcessNews(keyword, os.Getenv("NEWS_API_KEY"))
-		case "image":
+		case "wallpaper":
 			var keyword = ""
 			if update.Message.CommandArguments() != "" {
 				keyword = strings.ToLower(update.Message.CommandArguments())
