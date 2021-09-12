@@ -64,6 +64,12 @@ func main() {
 				keyword = strings.ToLower(update.Message.CommandArguments())
 			}
 			msg.Text = p.ProcessNews(keyword, os.Getenv("NEWS_API_KEY"))
+		case "image":
+			var keyword = ""
+			if update.Message.CommandArguments() != "" {
+				keyword = strings.ToLower(update.Message.CommandArguments())
+			}
+			msg.Text = p.ProcessImage(keyword, os.Getenv("FLICKR_API_KEY"))
 		case "weather":
 			var city = "Vaxjo"
 			if update.Message.CommandArguments() != "" {

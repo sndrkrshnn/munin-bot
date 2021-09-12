@@ -7,6 +7,7 @@ import (
 	"time"
 	"example.com/main/types"
 )
+
 func HandleWeatherResponse(s string) string {
 	rand.See(time.Now().UnixNano())
 	min := 0
@@ -24,7 +25,7 @@ func HandleWeatherResponse(s string) string {
 	case "Haze", "haze":
 		return getHaze()[random]
 	default:
-		return fmt.Sprintf("Hmm.. I suppose Odin hasn't programmed that part of the weather yet. So it's just %s\n", s)	
+		return fmt.Sprintf("Hmm.. I suppose Odin hasn't programmed that part of the weather yet. So it's just %s\n", s)
 }
 
 
