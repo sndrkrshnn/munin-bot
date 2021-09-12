@@ -5,7 +5,7 @@ type ImageContent struct {
 }
 
 type Photos struct {
-	Total int32          `json:"total"`
+	Total int            `json:"total"`
 	Photo []PhotoContent `json:"photo"`
 }
 type PhotoContent struct {
