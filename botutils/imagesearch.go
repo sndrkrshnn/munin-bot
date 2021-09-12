@@ -10,7 +10,7 @@ import (
 	"example.com/main/types"
 )
 
-func GetImageContent(keyword string, API_KEY string) types.Photos {
+func GetImageContent(keyword string, API_KEY string) types.ImageContent {
 	getURL := fmt.Sprintf("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%s&text=hollow-knight&format=json", API_KEY)
 	if keyword != "" {
 		getURL = fmt.Sprintf("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%s&text=%s&format=json", keyword, API_KEY)
@@ -26,7 +26,7 @@ func GetImageContent(keyword string, API_KEY string) types.Photos {
 		log.Fatal(readErr)
 	}
 
-	var c types.Photos
+	var c types.ImageContent
 	errUnmarshal := json.Unmarshal(bytes, &c)
 	if errUnmarshal != nil {
 		log.Fatal(errUnmarshal)
