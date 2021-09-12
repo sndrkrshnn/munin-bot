@@ -68,9 +68,7 @@ func main() {
 			if update.Message.CommandArguments() != "" {
 				keyword = strings.ToLower(update.Message.CommandArguments())
 			}
-			msg := tgbot.NewPhotoUpload(update.Message.Chat.ID, nil)
-			msg.FileID = p.ProcessImage(keyword, os.Getenv("FLICKR_API_KEY"))
-			msg.UseExisting = true
+			msg.Text = p.ProcessImage(keyword, os.Getenv("FLICKR_API_KEY"))
 		case "weather":
 			var city = "Vaxjo"
 			if update.Message.CommandArguments() != "" {
