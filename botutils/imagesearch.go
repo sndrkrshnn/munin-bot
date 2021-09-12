@@ -6,6 +6,7 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
+	"strings"
 
 	"example.com/main/types"
 )
@@ -16,22 +17,25 @@ func GetImageContent(keyword string, API_KEY string) types.ImageContent {
 		getURL = fmt.Sprintf("https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=%s&text=%s&format=json", keyword, API_KEY)
 	}
 	resp, err := http.Get(getURL)
-	log.Println(resp)
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	bytes, readErr := ioutil.ReadAll(resp.Body)
 	defer resp.Body.Close()
-	if readErr != nil {
-		log.Fatal(readErr)
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		log.Fatal(err)
 	}
-
+	bodyString := string(bodyBytes)
+	bodyString = strings.ReplaceAll(bodyString, "jsonFlickrApi", "")
+	bodyString = strings.ReplaceAll(bodyString, "(", "")
+	bodyString = strings.ReplaceAll(bodyString, ")", "")
+	log.Print(bodyString)
+	bytes := []byte(bodyString)
 	var c types.ImageContent
 	errUnmarshal := json.Unmarshal(bytes, &c)
 	if errUnmarshal != nil {
 		log.Fatal(errUnmarshal)
 	}
-	log.Println(c)
+	log.Println(c.Photos.Photo[0].ID)
 	return c
 }
