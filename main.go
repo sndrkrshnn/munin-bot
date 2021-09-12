@@ -47,7 +47,8 @@ func main() {
 			msg.Text = "\nIf you want to gather news for a custom word, use /getnews <keyword>." +
 				"\nIf keyword contains more than one word, use /getnews <1word-2word>." +
 				"\nYou can also ask me if you need an umbrella by commanding /weather or /weather <cityname>." +
-				"\nYou can also suggest new features that you'd like to see in me with /suggestions <suggestion>."
+				"\nYou can also suggest new features that you'd like to see in me with /suggestions <suggestion>." +
+				"\nYou can also get suggested a completely random image or an image based on your keyword using /image <keyword> or /image."
 		case "suggestions":
 			var s string
 			if update.Message.CommandArguments() != "" {
