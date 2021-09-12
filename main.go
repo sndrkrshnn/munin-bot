@@ -63,7 +63,8 @@ func main() {
 			if update.Message.CommandArguments() != "" {
 				keyword = strings.ToLower(update.Message.CommandArguments())
 			}
-			msg.Text = p.ProcessNews(keyword, os.Getenv("NEWS_API_KEY"))
+			p.ProcessNews(keyword, os.Getenv("NEWS_API_KEY"), bot, msg)
+
 		case "wallpaper":
 			var keyword = ""
 			if update.Message.CommandArguments() != "" {
@@ -81,8 +82,10 @@ func main() {
 		default:
 			msg.Text = "Kaw kaw idk what you kawing?"
 		}
-		if _, err := bot.Send(msg); err != nil {
-			panic(err)
+		if update.Message.Command() != "getnews" {
+			if _, err := bot.Send(msg); err != nil {
+				panic(err)
+			}
 		}
 	}
 
