@@ -67,7 +67,7 @@ func main() {
 		case "bookmark":
 			var bookmark = ""
 			if update.Message.CommandArguments() != "" {
-				bookmark = strings.ToLower(update.Message.CommandArguments())
+				bookmark = update.Message.CommandArguments()
 				os.Setenv("BOOKMARK", bookmark)
 			}
 			msg.Text = "Your current bookmark is: " + os.Getenv("BOOKMARK")
