@@ -64,7 +64,13 @@ func main() {
 				keyword = strings.ToLower(update.Message.CommandArguments())
 			}
 			p.ProcessNews(keyword, os.Getenv("NEWS_API_KEY"), bot, msg)
-
+		case "bookmark":
+			var bookmark = ""
+			if update.Message.CommandArguments() != "" {
+				bookmark = strings.ToLower(update.Message.CommandArguments())
+				os.Setenv("BOOKMARK", bookmark)
+			}
+			msg.Text = "Your current bookmark is: " + os.Getenv("BOOKMARK")
 		case "wallpaper":
 			var keyword = ""
 			if update.Message.CommandArguments() != "" {
