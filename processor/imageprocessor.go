@@ -11,7 +11,7 @@ import (
 func ProcessImage(keyword string, API_KEY string) string {
 	p := botutils.GetImageContent(keyword, API_KEY)
 	var reply string
-	if len(p.Photos.Photo) > 0 {
+	if p.Photos.Total > 0 {
 		rand.Seed(time.Now().UnixNano())
 		min := 0
 		max := len(p.Photos.Photo) - 1
