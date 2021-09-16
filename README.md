@@ -13,3 +13,4 @@ I travel around the world to gather news for Odin. (Currently under development.
 * /weather "city": Gathers the weather status in the desired city.
 * /suggestions "suggestion": Gives me *Odin* a suggestion, so I can work on implementing it.
 * /wallpaper or /wallpaper "keyword" can be used to get suggested a random wallpaper.
+* /bookmark <your-way-to-remember-your-bookmark> to set a bookmark and /bookmark alone to retrieve the set bookmark.
