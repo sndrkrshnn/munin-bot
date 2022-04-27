@@ -86,7 +86,7 @@ func main() {
 		case "kaw":
 			msg.Text = "You expect me to kaw, cus I am a raven? :|"
 		default:
-			msg.Text = "Kaw kaw idk what you kawing?"
+			msg.Text = update.Message.Text
 		}
 		if update.Message.Command() != "getnews" {
 			if _, err := bot.Send(msg); err != nil {
