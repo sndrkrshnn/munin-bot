@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	log.Printf("Starting telegram bot main....")
+
 	bot, error := tgbot.NewBotAPI(os.Getenv("TELE_BOT_TOKEN"))
 	if error != nil {
 		log.Fatal(error)
